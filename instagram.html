@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JSON Demo</title>
+</head>
+<body>
+  <ul id="users"></ul>
+  <script>
+    let request = new XMLHttpRequest();      //Reque http Server para completar requisicao request.send
+
+                                              //npm install -g live-server
+                                              //live server
+
+                                              //identar api visualmente com os campos http://jsonviewer.stack.hu/
+                                              //GET JSON ONLINE Exemplo https://www.instagram.com/web/search/topsearch/?context=blended&query=rodolfo
+
+    request.open('GET', 'https://www.instagram.com/web/search/topsearch/?context=blended&query=rodolfo', true);
+      request.onload = function () {
+      // Convert JSON data to an object
+      let saida = JSON.parse(this.response);
+      let output = '';
+      
+    
+      saida2 = saida['users'];
+      //console.log(saida2.length);
+        for (i = 0;  i < saida2.length; i++){
+        output += '<div align=center><h4>Nome do Usuário: '+ saida['users'][i]['user']['username']+'</h4><img src=' +saida['users'][i]['user']['profile_pic_url']+'></img></div>';	
+      }
+      document.getElementById('users').innerHTML = output;
+    }
+    request.send();
+  </script>
+</body>
+</html>
